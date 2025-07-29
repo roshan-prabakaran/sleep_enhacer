@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Sleep Enhancement Device</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1><i class="fas fa-moon"></i> SleepWell</h1>
+                <div class="connection-status" id="connectionStatus">
+                    <i class="fas fa-wifi"></i>
+                    <span>Connected</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-tab="control">
+                <i class="fas fa-sliders-h"></i>
+                <span>Control</span>
+            </button>
+            <button class="nav-btn" data-tab="timer">
+                <i class="fas fa-clock"></i>
+                <span>Timer</span>
+            </button>
+            <button class="nav-btn" data-tab="analytics">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </button>
+            <button class="nav-btn" data-tab="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Control Tab -->
+            <div class="tab-content active" id="control">
+                <div class="control-section">
+                    <h2>Device Controls</h2>
+                    
+                    <!-- Aromatherapy Control -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-info">
+                                <i class="fas fa-leaf"></i>
+                                <h3>Aromatherapy</h3>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="aromatherapyToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="feature-controls">
+                            <div class="control-group">
+                                <label>Intensity</label>
+                                <input type="range" id="aromatherapyIntensity" min="0" max="100" value="50">
+                                <span class="value-display">50%</span>
+                            </div>
+                            <div class="control-group">
+                                <label>Fragrance</label>
+                                <select id="fragranceSelect">
+                                    <option value="lavender">Lavender</option>
+                                    <option value="eucalyptus">Eucalyptus</option>
+                                    <option value="chamomile">Chamomile</option>
+                                    <option value="vanilla">Vanilla</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vibration Control -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-info">
+                                <i class="fas fa-hand-paper"></i>
+                                <h3>Vibration Massage</h3>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="vibrationToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="feature-controls">
+                            <div class="control-group">
+                                <label>Intensity</label>
+                                <input type="range" id="vibrationIntensity" min="0" max="100" value="30">
+                                <span class="value-display">30%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sound Control -->
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <div class="feature-info">
+                                <i class="fas fa-music"></i>
+                                <h3>Sound Therapy</h3>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="soundToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="feature-controls">
+                            <div class="control-group">
+                                <label>Volume</label>
+                                <input type="range" id="soundVolume" min="0" max="100" value="40">
+                                <span class="value-display">40%</span>
+                            </div>
+                            <div class="control-group">
+                                <label>Sound Track</label>
+                                <select id="soundSelect">
+                                    <option value="rain">Rain Sounds</option>
+                                    <option value="ocean">Ocean Waves</option>
+                                    <option value="forest">Forest Ambience</option>
+                                    <option value="white-noise">White Noise</option>
+                                    <option value="meditation">Meditation Music</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timer Tab -->
+            <div class="tab-content" id="timer">
+                <div class="timer-section">
+                    <h2>Sleep Timer</h2>
+                    <div class="timer-display">
+                        <div class="timer-circle">
+                            <div class="timer-text">
+                                <span id="timerMinutes">30</span>
+                                <small>minutes</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timer-controls">
+                        <div class="timer-presets">
+                            <button class="preset-btn" data-minutes="15">15m</button>
+                            <button class="preset-btn active" data-minutes="30">30m</button>
+                            <button class="preset-btn" data-minutes="45">45m</button>
+                            <button class="preset-btn" data-minutes="60">60m</button>
+                        </div>
+                        <div class="timer-actions">
+                            <button class="timer-btn start" id="startTimer">
+                                <i class="fas fa-play"></i>
+                                Start Timer
+                            </button>
+                            <button class="timer-btn stop" id="stopTimer" style="display: none;">
+                                <i class="fas fa-stop"></i>
+                                Stop Timer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div class="tab-content" id="analytics">
+                <div class="analytics-section">
+                    <h2>Sleep Analytics</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="avgSleep">7.5h</h3>
+                                <p>Avg Sleep</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="sleepQuality">85%</h3>
+                                <p>Sleep Quality</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-moon"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="deepSleep">2.1h</h3>
+                                <p>Deep Sleep</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="remSleep">1.8h</h3>
+                                <p>REM Sleep</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Sleep Trends (Last 7 Days)</h3>
+                        <canvas id="sleepChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settings">
+                <div class="settings-section">
+                    <h2>Settings</h2>
+                    <div class="settings-group">
+                        <h3>Device Settings</h3>
+                        <div class="setting-item">
+                            <label>Auto-off Timer</label>
+                            <select>
+                                <option>30 minutes</option>
+                                <option>1 hour</option>
+                                <option>2 hours</option>
+                                <option>Never</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label>Notification Sounds</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h3>Sleep Tracking</h3>
+                        <div class="setting-item">
+                            <label>Track Sleep Automatically</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Smart Wake-up</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h3>Data & Privacy</h3>
+                        <button class="settings-btn">Export Sleep Data</button>
+                        <button class="settings-btn">Clear All Data</button>
+                        <button class="settings-btn">Privacy Policy</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
